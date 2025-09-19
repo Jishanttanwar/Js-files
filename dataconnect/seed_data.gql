@@ -1,0 +1,37 @@
+mutation SeedData @auth(level: USER) {
+  user_upsertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      firstName: "Bob",
+      lastName: "User",
+      email: "bob@example.com",
+      passwordHash: "somehash",
+      role: "patient"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      firstName: "Alice",
+      lastName: "Doctor",
+      email: "alice@example.com",
+      passwordHash: "anotherhash",
+      role: "doctor"
+    }
+  ])
+  patientProfile_upsertMany(data: [
+    {
+      id: "650e8400-e29b-41d4-a716-446655440000",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      gender: "male",
+      dateOfBirth: "1990-01-01"
+    }
+  ])
+  doctorProfile_upsertMany(data: [
+    {
+      id: "750e8400-e29b-41d4-a716-446655440000",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      specialty: "Cardiology",
+      licenseNumber: "MD123",
+      yearsOfExperience: 10
+    }
+  ])
+}

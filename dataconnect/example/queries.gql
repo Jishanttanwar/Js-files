@@ -1,0 +1,34 @@
+mutation InsertNewUser @auth(level: USER) {
+  user_insert(data: {
+    email: "newuser@example.com",
+    passwordHash: "hashed_password",
+    role: "patient",
+    createdAt_expr: "request.time"
+  })
+}
+
+query ListDoctorProfiles @auth(level: PUBLIC) {
+  doctorProfiles {
+    id
+    bio
+    clinicAddress
+    specialty
+    yearsOfExperience
+  }
+}
+
+mutation UpdateAppointmentNotes($id: UUID!, $notes: String) @auth(level: USER) {
+  appointment_update(key: {id: $id}, data: {
+    notes: $notes
+  })
+}
+
+query GetPatientProfile @auth(level: USER) {
+  patientProfile(key: {userId_expr: "auth.uid"}) {
+    id
+    allergies
+    dateOfBirth
+    gender
+    medicalHistorySummary
+  }
+}

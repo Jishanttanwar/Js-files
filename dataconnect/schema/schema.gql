@@ -1,0 +1,58 @@
+type User @table {
+  email: String!
+  passwordHash: String!
+  role: String! # PATIENT or DOCTOR
+  createdAt: Timestamp!
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  address: String
+}
+
+type PatientProfile @table {
+  user: User!
+  dateOfBirth: Date!
+  gender: String!
+  medicalHistorySummary: String
+  allergies: String
+}
+
+type DoctorProfile @table {
+  user: User!
+  specialty: String!
+  licenseNumber: String!
+  createdAt: Timestamp!
+  yearsOfExperience: Int
+  clinicAddress: String
+  bio: String
+}
+
+type Appointment @table {
+  patient: PatientProfile!
+  doctor: DoctorProfile!
+  appointmentDateTime: Timestamp!
+  status: String! # SCHEDULED, COMPLETED, CANCELED
+  createdAt: Timestamp!
+  notes: String
+  reasonForVisit: String
+}
+
+type MedicalRecord @table {
+  patient: PatientProfile!
+  doctor: DoctorProfile
+  recordType: String! # PRESCRIPTION, LAB_RESULT, CONSULTATION_NOTE
+  uploadDate: Timestamp!
+  documentUrl: String!
+  description: String
+  associatedAppointment: Appointment
+}
+
+type Message @table {
+  sender: User!
+  receiver: User!
+  content: String!
+  sentAt: Timestamp!
+  isRead: Boolean
+  subject: String
+  associatedAppointment: Appointment
+}
