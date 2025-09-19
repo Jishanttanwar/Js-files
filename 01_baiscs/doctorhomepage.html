@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - HealthCare Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .welcome-section {
+            flex: 1;
+        }
+
+        .welcome-section h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .doctor-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .doctor-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .patients-icon { background: linear-gradient(45deg, #FF6B6B, #FF8E8E); }
+        .appointments-icon { background: linear-gradient(45deg, #4ECDC4, #44A08D); }
+        .records-icon { background: linear-gradient(45deg, #45B7D1, #96C93D); }
+        .analytics-icon { background: linear-gradient(45deg, #F093FB, #F5576C); }
+        .messages-icon { background: linear-gradient(45deg, #FFC371, #FF5F6D); }
+        .schedule-icon { background: linear-gradient(45deg, #667eea, #764ba2); }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .card-content {
+            margin-bottom: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .patient-list, .appointment-list {
+            list-style: none;
+        }
+
+        .patient-item, .appointment-item {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .patient-item:hover, .appointment-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .patient-name, .appointment-patient {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .patient-condition, .appointment-time {
+            color: #7f8c8d;
+            font-size: 0.85em;
+        }
+
+        .urgent {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            color: white;
+        }
+
+        .card-footer {
+            text-align: center;
+        }
+
+        .view-all-btn {
+            background: none;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .schedule-overview {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background: #f8f9fa;
+            transform: scale(1.1);
+        }
+
+        .calendar-day.today {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .calendar-day.has-appointments::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background: #FF6B6B;
+            border-radius: 50%;
+        }
+
+        .quick-tools {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            background: #f8f9fa;
+            transform: translateX(10px);
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .notification-badge {
+            background: #FF6B6B;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: auto;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bottom-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .quick-actions {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="welcome-section">
+                <h1>Good Morning, Dr. Smith</h1>
+                <div class="doctor-info">
+                    <div class="doctor-avatar">DS</div>
+                    <div>
+                        <div><strong>Dr. Emily Smith</strong></div>
+                        <div style="color: #7f8c8d; font-size: 0.9em;">Cardiologist • ID: DOC-2024-001</div>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <button class="action-btn" onclick="newConsultation()">📋 New Consultation</button>
+                <button class="action-btn" onclick="emergencyAlert()">🚨 Emergency</button>
+                <button class="action-btn" onclick="logout()">🔓 Logout</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Today's Patients -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon patients-icon">👥</div>
+                    <div class="card-title">Today's Patients</div>
+                </div>
+                <div class="card-content">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Scheduled appointments</div>
+                    <ul class="patient-list" style="margin-top: 15px;">
+                        <li class="patient-item urgent">
+                            <div>
+                                <div class="patient-name">John Doe</div>
+                                <div class="patient-condition">Chest Pain - Priority</div>
+                            </div>
+                            <div>9:30 AM</div>
+                        </li>
+                        <li class="patient-item">
+                            <div>
+                                <div class="patient-name">Mary Johnson</div>
+                                <div class="patient-condition">Follow-up</div>
+                            </div>
+                            <div>10:15 AM</div>
+                        </li>
+                        <li class="patient-item">
+                            <div>
+                                <div class="patient-name">Robert Wilson</div>
+                                <div class="patient-condition">Routine Checkup</div>
+                            </div>
+                            <div>11:00 AM</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="view-all-btn" onclick="viewAllPatients()">View Full Schedule</button>
+                </div>
+            </div>
+
+            <!-- Upcoming Appointments -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon appointments-icon">📅</div>
+                    <div class="card-title">Next Appointments</div>
+                </div>
+                <div class="card-content">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">In next 2 hours</div>
+                    <ul class="appointment-list" style="margin-top: 15px;">
+                        <li class="appointment-item">
+                            <div>
+                                <div class="appointment-patient">Sarah Davis</div>
+                                <div class="appointment-time">In 15 minutes</div>
+                            </div>
+                            <div style="color: #667eea;">📱</div>
+                        </li>
+                        <li class="appointment-item">
+                            <div>
+                                <div class="appointment-patient">Michael Brown</div>
+                                <div class="appointment-time">In 45 minutes</div>
+                            </div>
+                            <div style="color: #4ECDC4;">🏥</div>
+                        </li>
+                        <li class="appointment-item">
+                            <div>
+                                <div class="appointment-patient">Lisa Anderson</div>
+                                <div class="appointment-time">In 1.5 hours</div>
+                            </div>
+                            <div style="color: #667eea;">📱</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="view-all-btn" onclick="manageAppointments()">Manage Appointments</button>
+                </div>
+            </div>
+
+            <!-- Patient Records -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon records-icon">📊</div>
+                    <div class="card-title">Patient Records</div>
+                </div>
+                <div class="card-content">
+                    <div class="stat-number">247</div>
+                    <div class="stat-label">Active patients</div>
+                    <div style="margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Recent Updates</span>
+                            <span style="color: #667eea; font-weight: 600;">8</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Pending Reviews</span>
+                            <span style="color: #FF6B6B; font-weight: 600;">3</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Lab Results</span>
+                            <span style="color: #4ECDC4; font-weight: 600;">12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="view-all-btn" onclick="accessRecords()">Access Records</button>
+                </div>
+            </div>
+
+            <!-- Analytics -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon analytics-icon">📈</div>
+                    <div class="card-title">Performance Analytics</div>
+                </div>
+                <div class="card-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <div class="stat-number" style="font-size: 1.8em;">98%</div>
+                            <div class="stat-label">Patient Satisfaction</div>
+                        </div>
+                        <div>
+                            <div class="stat-number" style="font-size: 1.8em;">45</div>
+                            <div class="stat-label">Consultations/Week</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>This Month</span>
+                            <span style="color: #4ECDC4; font-weight: 600;">+12%</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Revenue</span>
+                            <span style="color: #667eea; font-weight: 600;">$15,420</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="view-all-btn" onclick="viewAnalytics()">Detailed Reports</button>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon messages-icon">💬</div>
+                    <div class="card-title">Messages & Alerts</div>
+                </div>
+                <div class="card-content">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Unread messages</div>
+                    <div style="margin-top: 15px;">
+                        <div style="background: #fff3cd; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #ffc107;">
+                            <strong>Lab Alert:</strong> Critical values for John Doe
+                        </div>
+                        <div style="background: #d4edda; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #28a745;">
+                            <strong>Nurse:</strong> Patient prep completed for 10:15 AM
+                        </div>
+                        <div style="background: #e2e3e5; padding: 12px; border-radius: 8px; border-left: 4px solid #6c757d;">
+                            <strong>Admin:</strong> New insurance authorization
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="view-all-btn" onclick="openMessages()">All Messages</button>
+                </div>
+            </div>
+
+            <!-- Quick Tools -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon schedule-icon">⚡</div>
+                    <div class="card-title">Quick Actions</div>
+                </div>
+                <div class="card-content">
+                    <div class="tool-item" onclick="prescriptionTool()">
+                        <div class="tool-icon" style="background: linear-gradient(45deg, #FF6B6B, #FF8E8E);">💊</div>
+                        <div>
+                            <div style="font-weight: 600;">e-Prescription</div>
+                            <div style="font-size: 0.85em; color: #7f8c8d;">Create new prescription</div>
+                        </div>
+                    </div>
+                    <div class="tool-item" onclick="labOrders()">
+                        <div class="tool-icon" style="background: linear-gradient(45deg, #4ECDC4, #44A08D);">🔬</div>
+                        <div>
+                            <div style="font-weight: 600;">Lab Orders</div>
+                            <div style="font-size: 0.85em; color: #7f8c8d;">Order tests & scans</div>
+                        </div>
+                        <div class="notification-badge">2</div>
+                    </div>
+                    <div class="tool-item" onclick="referrals()">
+                        <div class="tool-icon" style="background: linear-gradient(45deg, #45B7D1, #96C93D);">👨‍⚕️</div>
+                        <div>
+                            <div style="font-weight: 600;">Referrals</div>
+                            <div style="font-size: 0.85em; color: #7f8c8d;">Send to specialists</div>
+                        </div>
+                    </div>
+                    <div class="tool-item" onclick="telemedicine()">
+                        <div class="tool-icon" style="background: linear-gradient(45deg, #F093FB, #F5576C);">📹</div>
+                        <div>
+                            <div style="font-weight: 600;">Telemedicine</div>
+                            <div style="font-size: 0.85em; color: #7f8c8d;">Start video call</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="bottom-section">
+            <!-- Schedule Overview -->
+            <div class="schedule-overview">
+                <div class="card-header">
+                    <div class="card-icon schedule-icon">📅</div>
+                    <div class="card-title">Weekly Schedule Overview</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div style="color: #7f8c8d;">September 2025</div>
+                    <div style="display: flex; gap: 10px;">
+                        <button style="border: none; background: #f8f9fa; padding: 8px 12px; border-radius: 6px; cursor: pointer;">← Prev</button>
+                        <button style="border: none; background: #f8f9fa; padding: 8px 12px; border-radius: 6px; cursor: pointer;">Next →</button>
+                    </div>
+                </div>
+                <div class="calendar-grid">
+                    <div style="font-weight: 600; text-align: center; color: #667eea;">Mon</div>
+                    <div style="font-weight: 600; text-align: center; color: #667eea;">Tue</div>
+                    <div style="font-weight: 600; text-align: center; color: #667eea;">Wed</div>
+                    <div style="font-weight: 600; text-align: center; color: #667eea;">Thu</div>
+                    <div style="font-weight: 600; text-align: center; color: #667eea;">Fri</div>
+                    <div style="font-weight: 600; text-align: center; color: #7f8c8d;">Sat</div>
+                    <div style="font-weight: 600; text-align: center; color: #7f8c8d;">Sun</div>
+                    <div class="calendar-day">16</div>
+                    <div class="calendar-day">17</div>
+                    <div class="calendar-day">18</div>
+                    <div class="calendar-day today has-appointments">19</div>
+                    <div class="calendar-day has-appointments">20</div>
+                    <div class="calendar-day">21</div>
+                    <div class="calendar-day">22</div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 15px; color: white;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600;">Today's Schedule</div>
+                            <div style="opacity: 0.9; font-size: 0.9em;">12 appointments • 2 pending</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 1.5em; font-weight: 700;">8.5h</div>
+                            <div style="opacity: 0.9; font-size: 0.9em;">Working time</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Tools -->
+            <div class="quick-tools">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(45deg, #FFC371, #FF5F6D);">🛠️</div>
+                    <div class="card-title">Professional Tools</div>
+                </div>
+                <div class="tool-item" onclick="medicalCalculator()">
+                    <div class="tool-icon" style="background: linear-gradient(45deg, #667eea, #764ba2);">🧮</div>
+                    <div>
+                        <div style="font-weight: 600;">Medical Calculator</div>
+                        <div style="font-size: 0.85em; color: #7f8c8d;">BMI, dosage & more</div>
+                    </div>
+                </div>
+                <div class="tool-item" onclick="drugDatabase()">
+                    <div class="tool-icon" style="background: linear-gradient(45deg, #FF6B6B, #FF8E8E);">🔍</div>
+                    <div>
+                        <div style="font-weight: 600;">Drug Database</div>
+                        <div style="font-size: 0.85em; color: #7f8c8d;">Interactions & info</div>
+                    </div>
+                </div>
+                <div class="tool-item" onclick="clinicalGuidelines()">
+                    <div class="tool-icon" style="background: linear-gradient(45deg, #4ECDC4, #44A08D);">📚</div>
+                    <div>
+                        <div style="font-weight: 600;">Clinical Guidelines</div>
+                        <div style="font-size: 0.85em; color: #7f8c8d;">Latest protocols</div>
+                    </div>
+                </div>
+                <div class="tool-item" onclick="insuranceVerification()">
+                    <div class="tool-icon" style="background: linear-gradient(45deg, #45B7D1, #96C93D);">✅</div>
+                    <div>
+                        <div style="font-weight: 600;">Insurance Check</div>
+                        <div style="font-size: 0.85em; color: #7f8c8d;">Verify coverage</div>
+                    </div>
+                </div>
+                <div class="tool-item" onclick="billingCenter()">
+                    <div class="tool-icon" style="background: linear-gradient(45deg, #F093FB, #F5576C);">💳</div>
+                    <div>
+                        <div style="font-weight: 600;">Billing Center</div>
+                        <div style="font-size: 0.85em; color: #7f8c8d;">Claims & payments</div>
+                    </div>
+                </div>
+                <div class="tool-item" onclick="continuingEducation()">
+                    <div class="tool-icon" style="background: linear-gradient(45deg, #FFC371, #FF5F6D);">🎓</div>
+                    <div>
+                        <div style="font-weight: 600;">CME Credits</div>
+                        <div style="font-size: 0.85em; color: #7f8c8d;">Continuing education</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive functions for the homepage
+        function newConsultation() {
+            alert('Opening new consultation form...');
+        }
+
+        function emergencyAlert() {
+            if (confirm('This will send an emergency alert to the medical team. Continue?')) {
+                alert('Emergency alert sent to medical team!');
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                alert('Logging out...');
+            }
+        }
+
+        function viewAllPatients() {
+            alert('Redirecting to patient management system...');
+        }
+
+        function manageAppointments() {
+            alert('Opening appointment management...');
+        }
+
+        function accessRecords() {
+            alert('Opening patient records database...');
+        }
+
+        function viewAnalytics() {
+            alert('Loading detailed analytics dashboard...');
+        }
+
+        function openMessages() {
+            alert('Opening message center...');
+        }
+
+        function prescriptionTool() {
+            alert('Opening e-prescription system...');
+        }
+
+        function labOrders() {
+            alert('Opening lab order management...');
+        }
+
+        function referrals() {
+            alert('Opening referral system...');
+        }
+
+        function telemedicine() {
+            alert('Starting telemedicine platform...');
+        }
+
+        function medicalCalculator() {
+            alert('Opening medical calculator tools...');
+        }
+
+        function drugDatabase() {
+            alert('Accessing drug interaction database...');
+        }
+
+        function clinicalGuidelines() {
+            alert('Loading clinical guidelines library...');
+        }
+
+        function insuranceVerification() {
+            alert('Opening insurance verification system...');
+        }
+
+        function billingCenter() {
+            alert('Accessing billing and claims center...');
+        }
+
+        function continuingEducation() {
+            alert('Opening CME credits portal...');
+        }
+
+        // Update time every minute
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.title = `Doctor Dashboard - ${timeString}`;
+        }
+        
+        setInterval(updateTime, 60000);
+        updateTime();
+
+        // Add some dynamic behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate real-time updates
+            setTimeout(() => {
+                const badge = document.querySelector('.notification-badge');
+                if (badge) {
+                    badge.textContent = parseInt(badge.textContent) + 1;
+                    badge.style.animation = 'pulse 0.5s ease-in-out';
+                }
+            }, 5000);
+
+            // Add hover effects to calendar days
+            const calendarDays = document.querySelectorAll('.calendar-day');
+            calendarDays.forEach(day => {
+                day.addEventListener('click', function() {
+                    alert(`Viewing appointments for ${this.textContent} September 2025`);
+                });
+            });
+
+            // Simulate patient status updates
+            setTimeout(() => {
+                const urgentItems = document.querySelectorAll('.patient-item.urgent');
+                urgentItems.forEach(item => {
+                    item.style.animation = 'pulse 1s ease-in-out infinite';
+                });
+            }, 3000);
+
+            // Auto-refresh indicators
+            const stats = document.querySelectorAll('.stat-number');
+            setInterval(() => {
+                stats.forEach(stat => {
+                    if (Math.random() > 0.8) { // 20% chance to update
+                        const currentValue = parseInt(stat.textContent);
+                        const change = Math.random() > 0.5 ? 1 : -1;
+                        stat.textContent = Math.max(0, currentValue + change);
+                        stat.style.color = change > 0 ? '#4ECDC4' : '#FF6B6B';
+                        setTimeout(() => {
+                            stat.style.color = '#667eea';
+                        }, 2000);
+                    }
+                });
+            }, 30000); // Update every 30 seconds
+
+            // Greeting based on time
+            const hour = new Date().getHours();
+            const greeting = hour < 12 ? 'Good Morning' : hour < 18 ? 'Good Afternoon' : 'Good Evening';
+            document.querySelector('h1').textContent = `${greeting}, Dr. Smith`;
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+            
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .dashboard-card {
+                animation: slideIn 0.6s ease-out forwards;
+            }
+            
+            .dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+            .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+            .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+            .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+            .dashboard-card:nth-child(5) { animation-delay: 0.5s; }
+            .dashboard-card:nth-child(6) { animation-delay: 0.6s; }
+        `;
+        document.head.appendChild(style);
+    </script>
+</script>
+<script src="doctorhomepage.js"></script>
+</body>
+</html>

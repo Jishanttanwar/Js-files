@@ -1,0 +1,85 @@
+<head>
+  <title>HealthSecure Portal</title>
+  <link rel="stylesheet" href="fdsh fgc.css" />
+</head>
+<div class="login-container">
+  <div class="background-elements">
+    </div>
+
+  <div class="login-card-wrapper">
+    <div class="login-card">
+      <div class="logo">
+        <img src="assets/logo.png" alt="HealthSecure Logo" />
+      </div>
+      <h1 class="portal-title">HealthSecure Portal</h1>
+      <p class="portal-subtitle">Secure healthcare data management platform</p>
+
+      <div class="welcome-message">
+        <h2>Welcome Back</h2>
+        <p>Please select your role and sign in to continue</p>
+      </div>
+
+      <div class="role-selection">
+        <button class="role-button active" name="role">
+          <i class="fas fa-user-injured"></i> Patient
+        </button>
+        <button class="role-button" name="role">
+          <i class="fas fa-user-md"></i> Doctor
+        </button>
+        <button class="role-button" name="role">
+          <i class="fas fa-user-shield"></i> Admin
+        </button>
+      </div>
+
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label for="emailUsername">Email / Username</label>
+          <input
+            type="text"
+            id="emailUsername"
+            placeholder="Enter your email or username"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <button type="submit" class="login-button">Login</button>
+
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </form>
+
+      <p class="security-info">Secure • Private • HIPAA Compliant</p>
+    </div>
+  </div>
+</div>
+<script src="jhfiyf.js"></script>
+<script>
+  let selectedRole = "patient"; // default role
+
+  document.querySelectorAll(".role-button").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".role-button").forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+      selectedRole = button.textContent.trim().toLowerCase();
+    });
+  });
+
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Add validation or credential check here if needed
+
+    if (selectedRole === "doctor") {
+      window.location.href = "doctorhomepage.html";
+    } else {
+      alert("Login redirection for selected role not implemented yet.");
+    }
+  });
+</script>

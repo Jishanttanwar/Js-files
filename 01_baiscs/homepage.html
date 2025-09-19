@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare+ Portal - Your Health, Our Priority</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid #4CAF50;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2E7D32;
+        }
+
+        .logo::before {
+            content: "🏥";
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: #4CAF50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            margin: 2rem auto;
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,255,255,0.05) 10deg, transparent 20deg);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+
+
+       
+    /* Quick Actions */
+        .quick-actions {
+            background: rgb(255, 255, 255);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #12a643;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .action-card {
+            background: linear-gradient(135deg, #f8f9ff, #e3f2fd);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-card:hover::before {
+            left: 100%;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: #4CAF50;
+        }
+
+        .action-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-card h3 {
+            color: #2E7D32;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Features Section */
+        .features {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem 0;
+            margin: 2rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 15px;
+            margin: 1rem 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
+        }
+
+        .emergency-banner strong {
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem 0 1rem;
+            margin-top: 3rem;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #2E7D32;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #4CAF50;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close:hover {
+            color: #ff4444;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+    </style>
+    <link rel="stylesheet" href="homepage3.css">
+</head>
+<body id="top">
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">HealthCare+</div>
+            <ul class="nav-links">
+                <li><a href="#top">Home</a></li>
+                <li><a href="#doctors">Doctors</a></li>
+                <li><a href="#footer">About</a></li>
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+            <button class="login-btn" onclick="openModal('loginModal')">Patient Login</button>
+        </nav>
+    </header>
+
+    <!-- Emergency Banner -->
+    <div class="container">
+        <div class="emergency-banner">
+            <strong>🚨 EMERGENCY: Call +91 9680565223 or visit our Emergency Room 24/7</strong>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Health, Our Priority</h1>
+                <p>Comprehensive healthcare services with cutting-edge technology and compassionate care</p>
+                <div class="cta-buttons">
+                    <button class="cta-btn cta-primary" onclick="openModal('appointmentModal')">Book Appointment</button>
+                    <a href="../explore_services.html" target="_blank" rel="noopener" class="cta-btn cta-secondary">Explore Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Quick Actions -->
+    <section class="quick-actions container">
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="actions-grid">
+            <div class="action-card" onclick="openModal('appointmentModal')">
+                <div class="action-icon">📅</div>
+                <h3>Schedule Appointment</h3>
+                <p>Book your visit with our specialists</p>
+            </div>
+            <div class="action-card" onclick="openModal('loginModal')">
+                <div class="action-icon">📋</div>
+                <h3>View Medical Records</h3>
+                <p>Access your health information securely</p>
+            </div>
+            <div class="action-card" onclick="openModal('prescriptionModal')">
+                <div class="action-icon">💊</div>
+                <h3>Prescription Refill</h3>
+                <p>Request medication refills online</p>
+            </div>
+            <div class="action-card" onclick="openModal('labModal')">
+                <div class="action-icon">🧪</div>
+                <h3>Lab Results</h3>
+                <p>Check your test results</p>
+            </div>
+            <div class="action-card" onclick="openModal('billModal')">
+                <div class="action-icon">💳</div>
+                <h3>Pay Bills</h3>
+                <p>Manage your medical expenses</p>
+            </div>
+            <div class="action-card" onclick="openModal('teleModal')">
+                <div class="action-icon">📱</div>
+                <h3>Telemedicine</h3>
+                <p>Consult with doctors remotely</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features container">
+        <h2 class="section-title">Why Choose HealthCare+?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🏆</span>
+                <h3>Award-Winning Care</h3>
+                <p>Recognized for excellence in patient care and medical innovation with multiple healthcare awards and certifications.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">👨‍⚕️</span>
+                <h3>Expert Specialists</h3>
+                <p>Board-certified physicians and specialists with years of experience in their respective fields.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔒</span>
+                <h3>Secure & Private</h3>
+                <p>Your health information is protected with enterprise-grade security and HIPAA compliance.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>Fast & Convenient</h3>
+                <p>Quick appointment scheduling, minimal wait times, and convenient locations throughout the city.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🌍</span>
+                <h3>24/7 Access</h3>
+                <p>Access your health records, schedule appointments, and consult with doctors anytime, anywhere.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">💰</span>
+                <h3>Insurance Accepted</h3>
+                <p>We accept most major insurance plans and offer flexible payment options for all patients.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#appointments">Appointments</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#doctors">Find a Doctor</a></li>
+                        <li><a href="#locations">Locations</a></li>
+                        <li><a href="#insurance">Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Patient Resources</h3>
+                    <ul>
+                        <li><a href="#portal">Patient Portal</a></li>
+                        <li><a href="#billing">Billing & Insurance</a></li>
+                        <li><a href="#records">Medical Records</a></li>
+                        <li><a href="#pharmacy">Pharmacy Services</a></li>
+                        <li><a href="#health-library">Health Library</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>📞 (555) 123-4567</li>
+                        <li>📧 info@healthcareplus.com</li>
+                        <li>📍 123 Medical Center Dr<br>City, State 12345</li>
+                        <li>🕐 24/7 Emergency Care</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">YouTube</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HealthCare+ Portal. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Patient Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="username">Username or Email:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+                <p style="text-align: center; margin-top: 1rem;">
+                    <a href="#" style="color: #4CAF50;">Forgot Password?</a> | 
+                    <a href="#" style="color: #4CAF50;">Create Account</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Appointment Modal -->
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('appointmentModal')">&times;</span>
+            <h2>Schedule Appointment</h2>
+            <form>
+                <div class="form-group">
+                    <label for="patientName">Full Name:</label>
+                    <input type="text" id="patientName" name="patientName" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department:</label>
+                    <select id="department" name="department" required>
+                        <option value="">Select Department</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="dermatology">Dermatology</option>
+                        <option value="endocrinology">Endocrinology</option>
+                        <option value="gastroenterology">Gastroenterology</option>
+                        <option value="neurology">Neurology</option>
+                        <option value="orthopedics">Orthopedics</option>
+                        <option value="pediatrics">Pediatrics</option>
+                        <option value="psychiatry">Psychiatry</option>
+                        <option value="radiology">Radiology</option>
+                        <option value="surgery">Surgery</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="preferredDate">Preferred Date:</label>
+                    <input type="date" id="preferredDate" name="preferredDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Additional Notes:</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Please describe your symptoms or reason for visit"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Schedule Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Additional Modals for other services -->
+    <div id="prescriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('prescriptionModal')">&times;</span>
+            <h2>Prescription Refill</h2>
+            <form>
+                <div class="form-group">
+                    <label for="prescriptionId">Prescription ID:</label>
+                    <input type="text" id="prescriptionId" name="prescriptionId" required>
+                </div>
+                <div class="form-group">
+                    <label for="medicationName">Medication Name:</label>
+                    <input type="text" id="medicationName" name="medicationName" required>
+                </div>
+                <div class="form-group">
+                    <label for="pharmacy">Preferred Pharmacy:</label>
+                    <select id="pharmacy" name="pharmacy" required>
+                        <option value="">Select Pharmacy</option>
+                        <option value="hospital-pharmacy">Hospital Pharmacy</option>
+                        <option value="cvs">CVS Pharmacy</option>
+                        <option value="walgreens">Walgreens</option>
+                        <option value="rite-aid">Rite Aid</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Request Refill</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="labModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('labModal')">&times;</span>
+            <h2>Lab Results Access</h2>
+            <p>Please log in to view your lab results securely.</p>
+            <button class="submit-btn" onclick="closeModal('labModal'); openModal('loginModal')">Login to View Results</button>
+        </div>
+    </div>
+
+    <div id="billModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('billModal')">&times;</span>
+            <h2>Bill Payment</h2>
+            <p>Secure online payment portal for medical bills.</p>
+            <button class="submit-btn" onclick="closeModal('billModal'); openModal('loginModal')">Login to Pay Bills</button>
+        </div>
+    </div>
+
+    <div id="teleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('teleModal')">&times;</span>
+            <h2>Telemedicine Consultation</h2>
+            <p>Connect with our doctors from the comfort of your home.</p>
+            <button class="submit-btn" onclick="closeModal('teleModal'); openModal('appointmentModal')">Schedule Virtual Visit</button>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Set minimum date for appointment scheduling
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const dateInput = document.getElementById('preferredDate');
+            if (dateInput) {
+                dateInput.min = tomorrow.toISOString().split('T')[0];
+            }
+        });
+
+        // Form submission handlers
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you! Your request has been submitted. We will contact you shortly.');
+                // Close the modal
+                const modal = this.closest('.modal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+                // Reset form
+                this.reset();
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+<script src="homepage2.js"></script>
+</html>

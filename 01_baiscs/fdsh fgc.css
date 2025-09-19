@@ -1,0 +1,245 @@
+/*
+ * This file contains the styles for the login page using plain CSS.
+ * It's designed to complement the HTML structure provided previously.
+ * It provides a modern and responsive look without any framework dependencies.
+ */
+
+/* Custom CSS Variables for Colors */
+:root {
+  --primary-color: #4f46e5; /* A vibrant indigo, matching the button */
+  --accent-color: #6366f1; /* A lighter shade for gradients/hover */
+  --text-color: #1e293b; /* A dark slate for body text */
+  --card-bg: #f8fafc; /* A light slate for the card background */
+  --border-color: #e2e8f0; /* A light gray for borders */
+  --light-purple: #e0d7f9;
+}
+
+/* Base Styles */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Main Container and Layout */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f3e8ff, #ede9fe);
+  user-select: none; /* Prevents text from being selected with a cursor */
+}
+
+/* Background Elements with CSS */
+.background-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.1;
+}
+
+.background-elements::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><path d="M 0 150 Q 50 100 100 150 T 200 150 T 300 150 T 400 150 T 500 150 T 600 150 T 700 150 T 800 150 T 900 150 T 1000 150" fill="none" stroke="%233b82f6" stroke-width="2" /></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><path d="M 0 50 Q 50 100 100 50 T 200 50 T 300 50 T 400 50 T 500 50 T 600 50 T 700 50 T 800 50 T 900 50 T 1000 50" fill="none" stroke="%233b82f6" stroke-width="2" /></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><path d="M 0 100 Q 50 150 100 100 T 200 100 T 300 100 T 400 100 T 500 100 T 600 100 T 700 100 T 800 100 T 900 100 T 1000 100" fill="none" stroke="%233b82f6" stroke-width="2" /></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><path d="M 0 200 Q 50 150 100 200 T 200 200 T 300 200 T 400 200 T 500 200 T 600 200 T 700 200 T 800 200 T 900 200 T 1000 200" fill="none" stroke="%233b82f6" stroke-width="2" /></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><path d="M 0 250 Q 50 200 100 250 T 200 250 T 300 250 T 400 250 T 500 250 T 600 250 T 700 250 T 800 250 T 900 250 T 1000 250" fill="none" stroke="%233b82f6" stroke-width="2" /></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><path d="M 0 300 Q 50 350 100 300 T 200 300 T 300 300 T 400 300 T 500 300 T 600 300 T 700 300 T 800 300 T 900 300 T 1000 300" fill="none" stroke="%233b82f6" stroke-width="2" /></svg>');
+  background-size: 100% 300px, 100% 300px, 100% 300px, 100% 300px, 100% 300px, 100% 300px;
+  background-position: 0 0, 0 50px, 0 100px, 0 150px, 0 200px, 0 250px;
+}
+
+/* Card and Content */
+.login-card-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 32rem; /* Equivalent to max-w-lg */
+}
+
+.login-card {
+  background: linear-gradient(135deg, var(--light-purple), var(--card-bg));
+  border-radius: 1.5rem; /* Equivalent to rounded-3xl */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* Equivalent to shadow-xl */
+  border: 1px solid var(--border-color);
+  padding: 2rem; /* Equivalent to p-8 */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Equivalent to space-y-6 */
+}
+
+.logo {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  width: 100px;
+  height: auto;
+}
+
+.portal-title {
+  font-size: 1.875rem; /* Equivalent to text-3xl */
+  font-weight: 700; /* Equivalent to font-bold */
+  color: #1f2937; /* A dark gray for headings */
+  letter-spacing: -0.025em; /* Equivalent to tracking-tight */
+}
+
+.portal-subtitle {
+  color: #6b7280; /* Equivalent to text-gray-500 */
+  margin-top: 0.25rem;
+}
+
+.welcome-message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Equivalent to space-y-2 */
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-message h2 {
+  font-size: 1.5rem; /* Equivalent to text-2xl */
+  font-weight: 600; /* Equivalent to font-semibold */
+  color: #1f2937; /* Equivalent to text-gray-800 */
+}
+
+.welcome-message p {
+  color: #6b7280; /* Equivalent to text-gray-500 */
+}
+
+/* Role Selection Buttons */
+.role-selection {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem; /* Equivalent to gap-4 */
+}
+
+.role-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem; /* Equivalent to p-3 */
+  border-radius: 0.75rem; /* Equivalent to rounded-xl */
+  border: 1px solid var(--border-color);
+  color: #4b5563; /* Equivalent to text-gray-600 */
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.role-button:hover {
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.role-button.active {
+  background-color: #ffffff;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  font-weight: 500; /* Equivalent to font-medium */
+}
+
+.role-button i {
+  margin-right: 0.5rem;
+}
+
+/* Form and Inputs */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* Equivalent to space-y-5 */
+}
+
+.form-group {
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem; /* Equivalent to text-sm */
+  font-weight: 500; /* Equivalent to font-medium */
+  color: #374151; /* Equivalent to text-gray-700 */
+  margin-bottom: 0.25rem;
+}
+
+.form-group input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem; /* Equivalent to rounded-lg */
+  border: 1px solid var(--border-color);
+  transition-property: border-color, box-shadow, transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  color: #1f2937;
+  font-size: 0.875rem;
+}
+
+.form-group input::placeholder {
+  color: #9ca3af; /* Equivalent to placeholder-gray-400 */
+}
+
+.form-group input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.75rem 1rem; /* Equivalent to py-3 px-4 */
+  border-radius: 0.5rem; /* Equivalent to rounded-lg */
+  color: #ffffff;
+  font-weight: 600; /* Equivalent to font-semibold */
+  transition-property: opacity, transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  background-image: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.login-button:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.forgot-password {
+  display: block;
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.security-info {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .login-card {
+    padding: 1.5rem;
+  }
+}

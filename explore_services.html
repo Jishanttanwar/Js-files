@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Our Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 60px 40px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3.2em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .section-subtitle {
+            font-size: 1.3em;
+            color: #666;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 50px;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2em;
+            color: white;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+
+        .service-card:hover .service-icon::after {
+            width: 200px;
+            height: 200px;
+        }
+
+        .cardio .service-icon { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+        .neuro .service-icon { background: linear-gradient(135deg, #4834d4, #686de0); }
+        .orthopedic .service-icon { background: linear-gradient(135deg, #00d2d3, #01a3a4); }
+        .pediatric .service-icon { background: linear-gradient(135deg, #feca57, #ff9ff3); }
+        .oncology .service-icon { background: linear-gradient(135deg, #5f27cd, #a55eea); }
+        .dermatology .service-icon { background: linear-gradient(135deg, #00d2d3, #54a0ff); }
+        .ophthalmology .service-icon { background: linear-gradient(135deg, #ff9500, #ff7675); }
+        .gastro .service-icon { background: linear-gradient(135deg, #2ed573, #7bed9f); }
+        .pulmonary .service-icon { background: linear-gradient(135deg, #70a1ff, #5352ed); }
+        .urology .service-icon { background: linear-gradient(135deg, #ff6348, #ff4757); }
+        .gynecology .service-icon { background: linear-gradient(135deg, #ff6b9d, #c44569); }
+        .psychiatry .service-icon { background: linear-gradient(135deg, #3742fa, #2f3542); }
+
+        .service-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .service-card:hover .service-title {
+            color: #667eea;
+        }
+
+        .service-description {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .service-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .service-features li {
+            color: #34495e;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .service-card:hover .service-features li {
+            opacity: 1;
+        }
+
+        .service-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .service-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .services-container {
+                padding: 40px 20px;
+            }
+            
+            .section-title {
+                font-size: 2.5em;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .service-card {
+                padding: 30px 20px;
+            }
+        }
+
+        .loading {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="services-container">
+        <div class="section-header">
+            <h1 class="section-title">Explore Our Services</h1>
+            <p class="section-subtitle">Comprehensive healthcare solutions with world-class specialists and cutting-edge technology for your complete well-being</p>
+        </div>
+
+        <div class="services-grid" id="servicesGrid">
+            <div class="service-card cardio loading">
+                <div class="service-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3 class="service-title">Cardiology</h3>
+                <p class="service-description">Complete heart care with advanced diagnostic and treatment options</p>
+                <ul class="service-features">
+                    <li>ECG & Echocardiography</li>
+                    <li>Cardiac Catheterization</li>
+                    <li>Heart Surgery</li>
+                    <li>Preventive Care</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('cardiology')">Learn More</button>
+            </div>
+
+            <div class="service-card neuro loading">
+                <div class="service-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="service-title">Neurology</h3>
+                <p class="service-description">Expert care for brain, spine, and nervous system disorders</p>
+                <ul class="service-features">
+                    <li>MRI & CT Scans</li>
+                    <li>Stroke Treatment</li>
+                    <li>Epilepsy Management</li>
+                    <li>Neurological Surgery</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('neurology')">Learn More</button>
+            </div>
+
+            <div class="service-card orthopedic loading">
+                <div class="service-icon">
+                    <i class="fas fa-bone"></i>
+                </div>
+                <h3 class="service-title">Orthopedics</h3>
+                <p class="service-description">Specialized care for bones, joints, and musculoskeletal system</p>
+                <ul class="service-features">
+                    <li>Joint Replacement</li>
+                    <li>Sports Medicine</li>
+                    <li>Fracture Care</li>
+                    <li>Physical Therapy</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('orthopedics')">Learn More</button>
+            </div>
+
+            <div class="service-card pediatric loading">
+                <div class="service-icon">
+                    <i class="fas fa-baby"></i>
+                </div>
+                <h3 class="service-title">Pediatrics</h3>
+                <p class="service-description">Comprehensive healthcare for infants, children, and adolescents</p>
+                <ul class="service-features">
+                    <li>Well-child Visits</li>
+                    <li>Immunizations</li>
+                    <li>Developmental Care</li>
+                    <li>Emergency Pediatrics</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('pediatrics')">Learn More</button>
+            </div>
+
+            <div class="service-card oncology loading">
+                <div class="service-icon">
+                    <i class="fas fa-ribbon"></i>
+                </div>
+                <h3 class="service-title">Oncology</h3>
+                <p class="service-description">Advanced cancer treatment with personalized care plans</p>
+                <ul class="service-features">
+                    <li>Chemotherapy</li>
+                    <li>Radiation Therapy</li>
+                    <li>Surgical Oncology</li>
+                    <li>Palliative Care</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('oncology')">Learn More</button>
+            </div>
+
+            <div class="service-card dermatology loading">
+                <div class="service-icon">
+                    <i class="fas fa-hand-paper"></i>
+                </div>
+                <h3 class="service-title">Dermatology</h3>
+                <p class="service-description">Expert skin, hair, and nail care with cosmetic treatments</p>
+                <ul class="service-features">
+                    <li>Skin Cancer Screening</li>
+                    <li>Acne Treatment</li>
+                    <li>Cosmetic Procedures</li>
+                    <li>Dermatologic Surgery</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('dermatology')">Learn More</button>
+            </div>
+
+            <div class="service-card ophthalmology loading">
+                <div class="service-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3 class="service-title">Ophthalmology</h3>
+                <p class="service-description">Complete eye care with advanced vision correction options</p>
+                <ul class="service-features">
+                    <li>Cataract Surgery</li>
+                    <li>LASIK & Vision Correction</li>
+                    <li>Glaucoma Treatment</li>
+                    <li>Retinal Care</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('ophthalmology')">Learn More</button>
+            </div>
+
+            <div class="service-card gastro loading">
+                <div class="service-icon">
+                    <i class="fas fa-stomach"></i>
+                </div>
+                <h3 class="service-title">Gastroenterology</h3>
+                <p class="service-description">Digestive system care with minimally invasive procedures</p>
+                <ul class="service-features">
+                    <li>Endoscopy & Colonoscopy</li>
+                    <li>Liver Disease Treatment</li>
+                    <li>IBD Management</li>
+                    <li>Digestive Surgery</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('gastroenterology')">Learn More</button>
+            </div>
+
+            <div class="service-card pulmonary loading">
+                <div class="service-icon">
+                    <i class="fas fa-lungs"></i>
+                </div>
+                <h3 class="service-title">Pulmonology</h3>
+                <p class="service-description">Respiratory care for lung and breathing disorders</p>
+                <ul class="service-features">
+                    <li>Asthma Management</li>
+                    <li>COPD Treatment</li>
+                    <li>Sleep Disorders</li>
+                    <li>Lung Cancer Screening</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('pulmonology')">Learn More</button>
+            </div>
+
+            <div class="service-card urology loading">
+                <div class="service-icon">
+                    <i class="fas fa-kidneys"></i>
+                </div>
+                <h3 class="service-title">Urology</h3>
+                <p class="service-description">Specialized care for urinary tract and male reproductive system</p>
+                <ul class="service-features">
+                    <li>Kidney Stone Treatment</li>
+                    <li>Prostate Care</li>
+                    <li>Bladder Disorders</li>
+                    <li>Minimally Invasive Surgery</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('urology')">Learn More</button>
+            </div>
+
+            <div class="service-card gynecology loading">
+                <div class="service-icon">
+                    <i class="fas fa-venus"></i>
+                </div>
+                <h3 class="service-title">Gynecology</h3>
+                <p class="service-description">Comprehensive women's health and reproductive care</p>
+                <ul class="service-features">
+                    <li>Prenatal Care</li>
+                    <li>Gynecologic Surgery</li>
+                    <li>Family Planning</li>
+                    <li>Menopause Management</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('gynecology')">Learn More</button>
+            </div>
+
+            <div class="service-card psychiatry loading">
+                <div class="service-icon">
+                    <i class="fas fa-head-side-virus"></i>
+                </div>
+                <h3 class="service-title">Psychiatry</h3>
+                <p class="service-description">Mental health support with personalized treatment approaches</p>
+                <ul class="service-features">
+                    <li>Depression Treatment</li>
+                    <li>Anxiety Management</li>
+                    <li>Therapy Sessions</li>
+                    <li>Medication Management</li>
+                </ul>
+                <button class="service-btn" onclick="exploreService('psychiatry')">Learn More</button>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-item">
+                <span class="stat-number" data-count="50000">0</span>
+                <p class="stat-label">Patients Treated</p>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="200">0</span>
+                <p class="stat-label">Expert Doctors</p>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="12">0</span>
+                <p class="stat-label">Specialties</p>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="99">0</span>
+                <p class="stat-label">Success Rate %</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate cards on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.service-card');
+            
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animationDelay = `${index * 100}ms`;
+                    card.classList.remove('loading');
+                }, index * 100);
+            });
+
+            // Animate counters
+            animateCounters();
+        });
+
+        // Service exploration function
+        function exploreService(service) {
+            // Add click animation
+            event.target.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.target.style.transform = 'scale(1)';
+            }, 150);
+
+            // Show service details (you can customize this)
+            alert(`Exploring ${service} services. This would typically navigate to a detailed service page.`);
+        }
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            const animateCounter = (counter) => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+                
+                updateCounter();
+            };
+            
+            // Intersection Observer for counter animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        animateCounter(counter);
+                        observer.unobserve(counter);
+                    }
+                });
+            });
+            
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+        }
+
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Add hover sound effect (optional)
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                // Optional: Add subtle hover sound
+                // new Audio('hover-sound.mp3').play();
+            });
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                const focusedElement = document.activeElement;
+                if (focusedElement.classList.contains('service-btn')) {
+                    focusedElement.closest('.service-card').style.transform = 'translateY(-5px)';
+                }
+            }
+        });
+
+        // Add touch support for mobile
+        let touchStartY = 0;
+        document.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffY = touchStartY - touchEndY;
+            
+            if (Math.abs(diffY) > 50) {
+                // Add scroll-based animations for mobile
+                const cards = document.querySelectorAll('.service-card');
+                cards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        card.style.animationDelay = `${index * 50}ms`;
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="../exploreService1.js"></script>
+</body>
+</html>
