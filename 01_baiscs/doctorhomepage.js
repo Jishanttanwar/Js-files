@@ -144,7 +144,7 @@ class DoctorDashboard {
         if (confirm('Are you sure you want to logout?')) {
             this.showNotification('Logging out...', 'info');
             setTimeout(() => {
-                window.location.href = '/login.html'; // Redirect to login page
+                window.location.href = 'skdjhg.html';
             }, 2000);
         }
     }
